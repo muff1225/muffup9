@@ -25,7 +25,9 @@ $(document).ready( ->
         switch err.code
           when 0 then message = 'Unknown error: ' + err.message
           when 1 then message = 'You denied permission to retrieve a position.'
-          when 2 then message = 'The browser was unable to determine a position: ' + err.message
+          when 2
+              $("#geoLocationAdd").html('The browser was unable to determine a position.')
+              message = 'The browser was unable to determine a position: ' + err.message
           when 3 then message = 'The browser timed out before retrieving the position.'
           else message = err.message
  
