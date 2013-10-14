@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<title>BASECAMP</title>
+		<%= stylesheet_link_tag    "application", :media => "all"%>
+		<%= javascript_include_tag "application" %>
+		<meta name="description" content="あなただけのベースキャンプを見つけよう" />
+		<meta name="keywords" content="basecamp, BASECAMP, GoogleMap, ATND, ぐるなび, 電源" />
+		<meta name="author" content="muffup9" />
+	</head>
+	<body class="cbp-spmenu-push">
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<h3><i class="icon-gear"></i></h3>
+			<a href="#" title="Twitterでログイン"><i class="icon-twitter-sign"></i>LOGIN</a>
+
+		</nav>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+			<h3><i class="icon-th-list"></i></h3>
+			<a href="#"><i class="icon-home"></i>武蔵小杉タワープレイス</a>
+
+		</nav>
+		<div class="container">
+		<header>
+			<ul>
+				<li><a href="#home" id="showLeftPush"><i class="icon-gear"></i></a></li>
+				<li></li>
+				<li><a href="#home">BASECAMP</a></li>
+				<li></li>
+				<li><a href="#home" id="showRightPush"><i class="icon-th-list"></i></a></li>
+			</ul>
+		</header>
+			<div class="main" >
+				<iframe src="https://maps.google.co.jp/?ie=UTF8&amp;t=m&amp;brcurrent=3,0x6018f564e71418a9:0xecca98bc6376dd2f,1&amp;ll=35.575695,139.65904&amp;spn=0.006108,0.00912&amp;z=16&amp;output=embed"></iframe>
+			</div>
+			<footer>
+				<nav>
+					<a href="https://twitter.com/muff1225" title="https://twitter.com/muff1225"><i class="icon-twitter"></i></a>
+					<a href="https://github.com/muff1225/muffup9/" title="https://github.com/muff1225/muffup9/"><i class="icon-github-alt"></i></a>
+				</nav>
+			</footer>
+		</div>
+		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				showRightPush = document.getElementById( 'showRightPush' ),
+				body = document.body;
+
+
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+			};
+			showRightPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toleft' );
+				classie.toggle( menuRight, 'cbp-spmenu-open' );
+			};
+		</script>
+		<%= yield %>
+	</body>
+</html>
