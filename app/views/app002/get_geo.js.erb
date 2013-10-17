@@ -2,5 +2,14 @@ $("#geoLocation").html("HELLO");
 
 $("#geoLocationLat").html("緯度：<%= @lat %>");
 $("#geoLocationLon").html("経度：<%= @lon %>");
-$("#geoLocationAdd").html("住所：<%= @address %>");
-$("#geoRecommend").html("<%= @result2 %>");
+$("#geoLocationAdd").html("住所：<%= @address %><BR><BR>");
+<%    @result["results"]["shop"].each{|i| %>
+    $("#geoRecommend").append("<a href=\"#\" onclick=\"alert('Hello world!'); return false;\"><%= i["name"] %></a>")
+<% } %>
+$("#geoRecommend").append("<BR>")
+<%    @result2["events"].each{|i| %>
+    <%    i["event"].each{|j| %>
+        /* $("#geoRecommend").append("<%= link_to j["title"], "#" %>") */
+        $("#geoRecommend").append("<a href=\"#\" onclick=\"alert('Hello world!'); return false;\"><%= j["title"] %></a>")
+    <% } %>
+<% } %>
