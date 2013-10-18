@@ -6,7 +6,7 @@ class App002Controller < ApplicationController
     logger.debug params[:lon]
     @lat = params[:lat]
     @lon = params[:lon]
-    
+
     appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
     url = 'http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder'
     url = url + '?' + 'lat=' + @lat + '&' + 'lon=' + @lon + '&' + 'appid=' + appKey + '&' + 'output=json'
@@ -14,6 +14,8 @@ class App002Controller < ApplicationController
     
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
+    #proxy_class = Net::HTTP::Proxy('proxy.gw.nic.fujitsu.com', 8080)
+    #json = proxy_class.get(uri)
     @result = JSON.parse(json)
     
     @address = @result["Feature"][0]["Property"]["Address"]
@@ -26,10 +28,22 @@ class App002Controller < ApplicationController
     url = url + '?' + 'keyword=' + @address2 + '&format=json'
     uri = Addressable::URI.parse(url)
     json = Net::HTTP.get(uri)
+    #json = proxy_class.get(uri)
     @result2 = JSON.parse(json)
     logger.debug @result2
 
-	respond_to do |format|
+    appKey = '24b486bc826adfe8'
+    url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
+    url = url + '?' + 'key=' + appKey + '&' + 'lat=' + @lat + '&' + 'lng=' + @lon + '&' + 'range=3&format=json'
+    logger.debug url
+    
+    uri = URI.parse(url)
+    json = Net::HTTP.get(uri)
+    #proxy_class = Net::HTTP::Proxy('proxy.gw.nic.fujitsu.com', 8080)
+    #json = proxy_class.get(uri)
+    @result = JSON.parse(json)
+    
+    respond_to do |format|
 		format.js
 	end
   end
