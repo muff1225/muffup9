@@ -38,7 +38,8 @@
 			</ul>
 		</header>
 			<div class="main" >
-				<iframe src="https://maps.google.co.jp/?ie=UTF8&amp;t=m&amp;brcurrent=3,0x6018f564e71418a9:0xecca98bc6376dd2f,1&amp;ll=35.575695,139.65904&amp;spn=0.006108,0.00912&amp;z=16&amp;output=embed"></iframe>
+				<!-- <iframe src="https://maps.google.co.jp/?ie=UTF8&amp;t=m&amp;brcurrent=3,0x6018f564e71418a9:0xecca98bc6376dd2f,1&amp;ll=35.575695,139.65904&amp;spn=0.006108,0.00912&amp;z=16&amp;output=embed"></iframe> -->
+				<div id="yamap" style="width: 800px; height: 600px"></div>
 			</div>
 			<footer>
 				<nav>
@@ -66,6 +67,13 @@
 				classie.toggle( body, 'cbp-spmenu-push-toleft' );
 				classie.toggle( menuRight, 'cbp-spmenu-open' );
 			};
+		</script>
+		<script type="text/javascript" charset="utf-8" src="http://js.api.olp.yahooapis.jp/OpenLocalPlatform/V1/jsapi?appid=dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-"></script>
+		<script type="text/javascript">
+		window.onload = function(){
+			var ymap = new Y.Map("yamap");
+			ymap.drawMap(new Y.LatLng(35.685001, 139.751404), 17, Y.LayerSetId.NORMAL);
+		}
 		</script>
 		<%= yield %>
 	</body>
