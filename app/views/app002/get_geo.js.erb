@@ -3,10 +3,16 @@ $("#geoLocation").html("HELLO");
 $("#geoLocationLat").html("緯度：<%= @lat %>");
 $("#geoLocationLon").html("経度：<%= @lon %>");
 $("#geoLocationAdd").html("住所：<%= @address %><BR><BR>");
+
+var ymap = new Y.Map("yamap");
+ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
+
 <% cnt = 0 %>
 <%    @result["results"]["shop"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
     <% cnt += 1 %>
+    var label = new Y.Label(new Y.LatLng(<%= i["lat"] %>,<%= i["lng"] %>), "<%= i["name"] %>");
+    ymap.addFeature(label);
 <% } %>
 $("#geoRecommend").append("<BR>")
 <%    @result2["events"].each{|i| %>
