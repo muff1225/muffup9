@@ -24,6 +24,3 @@ gem 'addressable', require: 'addressable/uri'
 #gem 'omniauth'
 gem 'twitter'
 gem 'omniauth-twitter'
-
-#gem 'ontawesome'
-gem 'font-awesome-rails', '~> 3.2.1'
