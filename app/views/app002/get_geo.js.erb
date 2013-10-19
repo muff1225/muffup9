@@ -10,23 +10,53 @@ ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
 <% cnt = 0 %>
 <%    @result["results"]["shop"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
+    <% str = "" %>
+    <% str += "開催場所：" + i["address"] + "<br>" %>
+    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
     <% cnt += 1 %>
-    var label = new Y.Label(new Y.LatLng(<%= i["lat"] %>,<%= i["lng"] %>), "<%= i["name"] %>");
-    ymap.addFeature(label);
+    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>")
 <% } %>
 $("#geoRecommend").append("<BR>")
 <%    @result2["events"].each{|i| %>
     <%    i["event"].each{|j| %>
         /* $("#geoRecommend").append("<%= link_to j["title"], "#" %>") */
-        $("#geoRecommend").append("<a href=\"#\" onclick=\"test(); return false;\"><%= j["title"] %></a>")
-        var label = new Y.Label(new Y.LatLng(<%= j["lat"] %>,<%= j["lon"] %>), "<%= j["title"] %>");
-        ymap.addFeature(label);
+        $("#geoRecommend").append("<a href=\"#\" onclick=\"test(<%= cnt %>); return false;\"><%= j["title"] %></a>");
+        <% str = "" %>
+    	<% str += "開催場所：" + j["address"] + "<br>" %>
+    	<% str += "開催会場：" + j["place"] + "<br>" %>
+    	<% str += "URL：" + j["event_url"] + "<br>" %>
+    	<% str += "イベント開催日時：" + j["started_at"] + "<br>" %>
+    	<% str += "イベント終了日時：" + j["ended_at"] + "<br>" %>
+    	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
+        $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+        /* $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== j["description"].gsub("\"", "\\\"") %></div>"); */
+        <% cnt += 1 %>
+        putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>")
     <% } %>
 <% } %>
 
 function test(i)
 {
    <% index = capture do %>i<% end %>
-   $("#geoRecommend2").html("<%= @result["results"]["shop"][index.to_i]["address"] %>");
-   $("#geoRecommend2").toggle();
+   /* $("#geoRecommend2").html("<%= @result["results"]["shop"][index.to_i]["address"] %>"); */
+   /* $("#geoRecommend2").toggle(); */
+  var idstr = "#detail";
+  idstr += String(i);
+  $(idstr).toggle();
+}
+
+function putIconH(lat, lon, title){
+    var label = new Y.Label(new Y.LatLng(lat, lon), title);
+//    ymap.addFeature(label);
+    var icon = new Y.Icon("/assets/img_hot_pepper.gif");
+    var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    ymap.addFeature(marker);
+}
+
+function putIconA(lat, lon, title){
+    var label = new Y.Label(new Y.LatLng(lat, lon), title);
+//    ymap.addFeature(label);
+    var icon = new Y.Icon("/assets/atnd.png");
+    var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    ymap.addFeature(marker);
 }
