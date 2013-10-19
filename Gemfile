@@ -10,6 +10,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
 gem 'jquery-rails'
 
 # gem 'redis-rails', '~> 3.2.3'
@@ -19,3 +20,10 @@ gem 'geocoder'
 gem 'geokit-rails'
 
 gem 'addressable', require: 'addressable/uri'
+
+#gem 'omniauth'
+gem 'twitter'
+gem 'omniauth-twitter'
+
+#gem 'ontawesome'
+gem 'font-awesome-rails', '~> 3.2.1'
