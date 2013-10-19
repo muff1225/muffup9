@@ -40,4 +40,6 @@ $(document).ready( ->
     $("#getLocation").click( ->
         getCurrent()
     )
+    
+    getCurrent()
 )
