@@ -4,6 +4,7 @@ $("#geoLocationLat").html("緯度：<%= @lat %>");
 $("#geoLocationLon").html("経度：<%= @lon %>");
 $("#geoLocationAdd").html("住所：<%= @address %><BR><BR>");
 
+var labelList = {};
 var ymap = new Y.Map("yamap");
 ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
 
@@ -46,17 +47,38 @@ function test(i)
 }
 
 function putIconH(lat, lon, title){
-    var label = new Y.Label(new Y.LatLng(lat, lon), title);
-//    ymap.addFeature(label);
     var icon = new Y.Icon("/assets/img_hot_pepper.gif");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    marker.shopName = title;
     ymap.addFeature(marker);
+    marker.bind('click', function(){
+    	for (var key in labelList) {
+    		ymap.removeFeature(labelList[key]);
+    		delete labelList[key];
+    	}
+		var label = new Y.Label(new Y.LatLng(lat, lon), this.shopName);
+		ymap.addFeature(label);
+		labelList[this.shopName] = label;
+	});
 }
 
 function putIconA(lat, lon, title){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
-//    ymap.addFeature(label);
     var icon = new Y.Icon("/assets/atnd.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    marker.eventTitle = title;
     ymap.addFeature(marker);
+    marker.bind('click', function(){
+    	for(var key in labelList){
+    		ymap.removeFeature(labelList[key]);
+    		delete labelList[key];
+    	}
+		var label = new Y.Label(new Y.LatLng(lat, lon), this.eventTitle);
+		ymap.addFeature(label);
+		labelList[this.eventTitle] = label;
+	});
+}
+
+function deleteLabel(){
+	
 }
