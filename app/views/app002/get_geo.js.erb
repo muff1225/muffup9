@@ -47,7 +47,7 @@ function test(i)
 }
 
 function putIconH(lat, lon, title){
-    var icon = new Y.Icon("/assets/img_hot_pepper.gif");
+    var icon = new Y.Icon("/assets/hot_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
     marker.shopName = title;
     ymap.addFeature(marker);
@@ -64,7 +64,7 @@ function putIconH(lat, lon, title){
 
 function putIconA(lat, lon, title){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
-    var icon = new Y.Icon("/assets/atnd.png");
+    var icon = new Y.Icon("/assets/atnd_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
     marker.eventTitle = title;
     ymap.addFeature(marker);
