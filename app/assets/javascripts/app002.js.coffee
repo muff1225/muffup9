@@ -36,12 +36,10 @@ $(document).ready( ->
             url: "/app002/get_geo",
             data: 'lat=' + myPosition[0] + '&lon=' + myPosition[1]
         })
-
+ 
     $("#getLocation").click( ->
         getCurrent()
     )
-
+    
+    getCurrent()
 )
-
-
- 

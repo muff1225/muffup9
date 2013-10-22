@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'sqlite3'
+gem 'mysql2'
+#gem 'sqlite3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -12,6 +13,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'unicorn'
+
 # gem 'redis-rails', '~> 3.2.3'
 
 gem 'geocoder'
@@ -19,3 +22,7 @@ gem 'geocoder'
 gem 'geokit-rails'
 
 gem 'addressable', require: 'addressable/uri'
+
+#gem 'omniauth'
+gem 'twitter'
+gem 'omniauth-twitter'
