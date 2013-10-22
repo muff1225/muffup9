@@ -3,30 +3,73 @@ $("#geoLocation").html("HELLO");
 $("#geoLocationLat").html("緯度：<%= @lat %>");
 $("#geoLocationLon").html("経度：<%= @lon %>");
 $("#geoLocationAdd").html("住所：<%= @address %><BR><BR>");
+$("#geoRecommend").html("");
 
 var ymap = new Y.Map("yamap");
 ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
 
 <% cnt = 0 %>
 <%    @result["results"]["shop"].each{|i| %>
-    $("#geoRecommend").append("<a href=\"#\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
+    $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
+    <% str = "" %>
+    <% str += "<img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"> <br>" %>
+    <% str += "住所：" + i["address"] + "<br>" %>
+    <% str += "アクセス：" + i["mobile_access"] + "<br>" %>
+    <% str += "営業時間：" + i["open"] + "<br>" %>
+    <% str += "定休日：" + i["close"] + "<br>" %>
+    <% str += "URL：" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a>" + "<br>" %>
+    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
     <% cnt += 1 %>
-    var label = new Y.Label(new Y.LatLng(<%= i["lat"] %>,<%= i["lng"] %>), "<%= i["name"] %>");
-    ymap.addFeature(label);
+    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>")
 <% } %>
 $("#geoRecommend").append("<BR>")
 <%    @result2["events"].each{|i| %>
     <%    i["event"].each{|j| %>
-        /* $("#geoRecommend").append("<%= link_to j["title"], "#" %>") */
-        $("#geoRecommend").append("<a href=\"#\" onclick=\"test(); return false;\"><%= j["title"] %></a>")
-        var label = new Y.Label(new Y.LatLng(<%= j["lat"] %>,<%= j["lon"] %>), "<%= j["title"] %>");
-        ymap.addFeature(label);
+        $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= j["title"] %></a>");
+        <% str = "" %>
+    	<% str += "<img border=\\\"0\\\" src=\\\"" + j["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"> <br>" %>
+    	<% str += "開催場所：" + j["address"] + "<br>" %>
+    	<% str += "開催会場：" + j["place"] + "<br>" %>
+    	<% str += "URL：" + "<a href=\\\"" + j["event_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" +  j["event_url"] + "</a>" + "<br>" %>
+    	<% str += "開催期間：" + (j["kikan"].nil? ? "" : j["kikan"]) + "<br>" %>
+    	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
+        $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+        <% cnt += 1 %>
+        putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>")
     <% } %>
 <% } %>
 
 function test(i)
 {
-   <% index = capture do %>i<% end %>
-   $("#geoRecommend2").html("<%= @result["results"]["shop"][index.to_i]["address"] %>");
-   $("#geoRecommend2").toggle();
+    <% index = capture do %>i<% end %>
+    var menu = "#menu";
+    var detail = "#detail";
+    menu += String(i);
+    detail += String(i);
+    $(detail).toggle();
+    if($(detail).css("display") == "none")
+    {
+        $(menu).next().next().css("border-top", "hidden");
+        $(menu).css("border-bottom", "1px solid #fff");
+    }
+    else
+    {
+        $(menu).next().next().css("border-top", "1px solid #fff");
+        $(menu).css("border-bottom", "hidden");
+    }
+}
+
+function putIconH(lat, lon, title){
+    var icon = new Y.Icon("/assets/hot_icon.png");
+    var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    marker.bindInfoWindow(title);
+    ymap.addFeature(marker);
+}
+
+function putIconA(lat, lon, title){
+    var label = new Y.Label(new Y.LatLng(lat, lon), title);
+    var icon = new Y.Icon("/assets/atnd_icon.png");
+    var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    marker.bindInfoWindow(title);
+    ymap.addFeature(marker);
 }

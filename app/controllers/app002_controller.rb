@@ -25,13 +25,32 @@ class App002Controller < ApplicationController
     logger.debug @address2
     
     url = 'http://api.atnd.org/eventatnd/event/'
-    url = url + '?' + 'keyword=' + @address2 + '&format=json'
+    url = url + '?' + 'keyword=' + @address2 + '&count=100&format=json'
     uri = Addressable::URI.parse(url)
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result2 = JSON.parse(json)
-    logger.debug @result2
+    logger.debug json
 
+    nt = Time.now
+    @result2["events"].each{|i|
+      cnt = 0
+      i["event"].each{|j|
+        st = Time.parse(j["started_at"])
+        et = Time.parse(j["ended_at"])
+        if (st < nt) and (et < nt)
+          logger.debug "★cnt=" + String(cnt) + "," + "nt=" + nt.to_s + "," + "st=" + st.to_s + "," + "et=" + et.to_s
+          i["event"].delete_at cnt
+          cnt -= 1
+        else
+          logger.debug "☆cnt=" + String(cnt) + "," + "nt=" + nt.to_s + "," + "st=" + st.to_s + "," + "et=" + et.to_s
+          j["kikan"] = st.strftime("%Y年%m月%d日(%a)～") + et.strftime("%Y年%m月%d日(%a) (") + st.strftime("%H:%M～") + et.strftime("%H:%M)")
+        end
+        cnt += 1
+      }
+    }
+    logger.debug @result2
+    
     appKey = '24b486bc826adfe8'
     url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
     url = url + '?' + 'key=' + appKey + '&' + 'lat=' + @lat + '&' + 'lng=' + @lon + '&' + 'range=3&format=json'
@@ -42,9 +61,10 @@ class App002Controller < ApplicationController
     #proxy_class = Net::HTTP::Proxy('proxy.gw.nic.fujitsu.com', 8080)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
+    logger.debug @result
     
     respond_to do |format|
-		format.js
-	end
+      format.js
+		end
   end
 end
