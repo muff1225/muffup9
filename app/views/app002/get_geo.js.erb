@@ -20,7 +20,7 @@ ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
     <% str += "URL：" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a>" + "<br>" %>
     $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
     <% cnt += 1 %>
-    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>")
+    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
 <% } %>
 $("#geoRecommend").append("<BR>")
 <%    @result2["events"].each{|i| %>
@@ -35,7 +35,7 @@ $("#geoRecommend").append("<BR>")
     	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
         $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
         <% cnt += 1 %>
-        putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>")
+        putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
     <% } %>
 <% } %>
 
@@ -59,17 +59,37 @@ function test(i)
     }
 }
 
-function putIconH(lat, lon, title){
+function putIconH(lat, lon, title, index){
     var icon = new Y.Icon("/assets/hot_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title);
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
 }
 
-function putIconA(lat, lon, title){
+function putIconA(lat, lon, title, index){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
     var icon = new Y.Icon("/assets/atnd_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title);
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
 }
+
+function expandDetail(i){
+	console.log(menuRight);
+	if(!$(menuRight).hasClass("cbp-spmenu-open")){
+		classie.toggle( body, 'cbp-spmenu-push-toleft' );
+		classie.toggle( menuRight, 'cbp-spmenu-open' );
+	}
+	var idstr = "#detail";
+	idstr += String(i);
+	console.log($(idstr));
+	if($(idstr).css("display") == "none"){
+		$(idstr).toggle();
+	}
+	var target = $("#detail" + i);
+	var targetOffset = target.offset().top;
+	var zeroOffset = $("#getLocation").offset().top;
+	console.log(targetOffset);
+	$(menuRight).animate({scrollTop: (targetOffset - zeroOffset)},400);
+}
+
