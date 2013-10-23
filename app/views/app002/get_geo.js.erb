@@ -84,12 +84,12 @@ function expandDetail(i){
 	idstr += String(i);
 	console.log($(idstr));
 	if($(idstr).css("display") == "none"){
-		$(idstr).toggle();
+		test(i);
+//		$(idstr).toggle();
 	}
 	var target = $("#detail" + i);
 	var targetOffset = target.offset().top;
 	var zeroOffset = $("#getLocation").offset().top;
-	console.log(targetOffset);
 	$(menuRight).animate({scrollTop: (targetOffset - zeroOffset)},400);
 }
 
