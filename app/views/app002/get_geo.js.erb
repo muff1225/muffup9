@@ -18,6 +18,7 @@ ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
     <% str += "営業時間：" + i["open"] + "<br>" %>
     <% str += "定休日：" + i["close"] + "<br>" %>
     <% str += "URL：" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a>" + "<br>" %>
+    <% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["lat"] + "," + i["lng"] + ")\\\">地図</a>"%>
     $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
     <% cnt += 1 %>
     putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
@@ -33,6 +34,7 @@ $("#geoRecommend").append("<BR>")
     	<% str += "URL：" + "<a href=\\\"" + j["event_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" +  j["event_url"] + "</a>" + "<br>" %>
     	<% str += "開催期間：" + (j["kikan"].nil? ? "" : j["kikan"]) + "<br>" %>
     	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
+    	<% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + j["lat"] + "," + j["lon"] + ")\\\">地図</a>"%>
         $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
         <% cnt += 1 %>
         putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
@@ -93,3 +95,10 @@ function expandDetail(i){
 	$(menuRight).animate({scrollTop: (targetOffset - zeroOffset)},400);
 }
 
+function detailToMap(lat, lon){
+	if($(menuRight).hasClass("cbp-spmenu-open")){
+		classie.toggle( body, 'cbp-spmenu-push-toleft' );
+		classie.toggle( menuRight, 'cbp-spmenu-open' );
+	}
+	ymap.panTo(new Y.LatLng(lat, lon), true);
+}
