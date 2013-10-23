@@ -122,7 +122,7 @@ a:hover {
 	height: 100%;
 	border: none;
 	border-radius: 30px;
-	padding: 0.83em 0.83em 0.83em 0.83em;
+	padding: 5px;
 }
 .container > footer {
 	width: 100%;
@@ -132,6 +132,7 @@ a:hover {
 }
 .container > footer nav {
 	float: right;
+	margin: 0 5px;
 }
 
 .container > footer nav a {
@@ -144,7 +145,7 @@ a:hover {
 //	background: #34495e;
 	border-radius: 50%;
 	color: #fff;
-	margin: 0 0.1em;
+	margin: 0 0.2em;
 	border: 3px solid #f48a4a;
 //	border: 3px solid #34495e;
 	text-indent: 1px;
