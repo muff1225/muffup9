@@ -19,7 +19,7 @@
 		</nav>
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 			<h3><i class="icon-th-list"></i></h3>
-			<%= link_to " 武蔵小杉タワープレイス", "#", id:"getLocation", color:"#000000", class:"icon-home" %>
+			<%= link_to " 現在地", "#", id:"getLocation", color:"#000000", class:"icon-home" %>
             <div id='geoLocationLat'></div>
             <div id='geoLocationLon'></div>
             <div id='geoLocationAdd'></div>
@@ -70,7 +70,7 @@
 		<script type="text/javascript">
 		window.onload = function(){
 			var ymap = new Y.Map("yamap");
-			ymap.drawMap(new Y.LatLng(35.685001, 139.751404), 17, Y.LayerSetId.NORMAL);
+			ymap.drawMap(new Y.LatLng(35.685001, 139.751404), 5, Y.LayerSetId.NORMAL);
 		}
 		</script>
 		<%= yield %>
