@@ -102,7 +102,7 @@ a:hover {
 	display:block;
 	padding:4px;
 	color:#FFFFFF;
-	font-family: 'Comic Sans MS';
+	font-family: Courier;
 }
 
 .container > header ul li:first-child{
@@ -115,7 +115,7 @@ a:hover {
 }
 
 .container > header ul li:nth-child(2) {
-	text-shadow: 0px 1px #2f2f2f,0px 2px #2f2f2f;
+	text-shadow: 0px 1px 2px #692601;
 }
 
 .container > header ul li a:hover,a:active{
