@@ -13,7 +13,7 @@ var markerList = {};
 <%    @result["results"]["shop"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
     <% str = "" %>
-    <% str += "<img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"> <br>" %>
+    <% str += "<img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"><font size=\\\"0.3em\\\" color=\\\"#999999\\\"> 画像提供：ホットペッパー  グルメ</font><br>" %>
     <% str += "住所：" + i["address"] + "<br>" %>
     <% str += "アクセス：" + i["mobile_access"] + "<br>" %>
     <% str += "営業時間：" + i["open"] + "<br>" %>
@@ -41,6 +41,18 @@ $("#geoRecommend").append("<BR>")
         putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
     <% } %>
 <% } %>
+<%    @result3["results"].each{|i| %>
+    $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["title"] %></a>")
+    <% str = "" %>
+    <% str += "住所：" + i["address"] + "<br>" %>
+    <% str += "無線LAN：" + i["wireless"] + "<br>" %>
+    <% str += "その他：" + i["tag"] + "<br>" %>
+    <% str += "URL：" + "<a href=\\\"" + i["mo_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["mo_url"] + "</a>" + "<br>" %>
+    <% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["latitude"] + "," + i["longitude"] + "," + cnt.to_s + ")\\\">地図</a>"%>
+    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+    <% cnt += 1 %>
+    putIconD(<%= i["latitude"] %>,<%= i["longitude"] %>,"<%= i["title"] %>", <%= cnt-1 %>)
+<% } %>
 
 function test(i)
 {
@@ -52,12 +64,12 @@ function test(i)
     $(detail).toggle();
     if($(detail).css("display") == "none")
     {
-        $(menu).next().next().css("border-top", "hidden");
+        $(menu).next().next().next().css("border-top", "hidden");
         $(menu).css("border-bottom", "1px solid #fff");
     }
     else
     {
-        $(menu).next().next().css("border-top", "1px solid #fff");
+        $(menu).next().next().next().css("border-top", "1px solid #fff");
         $(menu).css("border-bottom", "hidden");
     }
 }
@@ -73,6 +85,15 @@ function putIconH(lat, lon, title, index){
 function putIconA(lat, lon, title, index){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
     var icon = new Y.Icon("/assets/atnd_icon.png");
+    var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
+    ymap.addFeature(marker);
+    markerList[index] = marker;
+}
+
+function putIconD(lat, lon, title, index){
+    var label = new Y.Label(new Y.LatLng(lat, lon), title);
+    var icon = new Y.Icon("/assets/dengen_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
     marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
