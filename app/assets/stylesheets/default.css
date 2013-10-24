@@ -82,7 +82,6 @@ a:hover {
 	border-radius: 10px;
 	font-size: medium;
 	display: table;
-	table-layout:fixed
 }
 
 .container > header ul li{
