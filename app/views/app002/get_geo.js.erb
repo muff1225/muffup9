@@ -20,7 +20,7 @@ var markerList = {};
     <% str += "定休日：" + i["close"] + "<br>" %>
     <% str += "URL：" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a>" + "<br>" %>
     <% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["lat"] + "," + i["lng"] + "," + cnt.to_s + ")\\\">地図</a>"%>
-    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
     <% cnt += 1 %>
     putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
 <% } %>
@@ -36,7 +36,7 @@ $("#geoRecommend").append("<BR>")
     	<% str += "開催期間：" + (j["kikan"].nil? ? "" : j["kikan"]) + "<br>" %>
     	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
     	<% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + j["lat"] + "," + j["lon"] + "," + cnt.to_s + ")\\\"> 地図</a>"%>
-        $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+        $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
         <% cnt += 1 %>
         putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
     <% } %>
@@ -49,7 +49,7 @@ $("#geoRecommend").append("<BR>")
     <% str += "その他：" + i["tag"] + "<br>" %>
     <% str += "URL：" + "<a href=\\\"" + i["mo_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["mo_url"] + "</a>" + "<br>" %>
     <% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["latitude"] + "," + i["longitude"] + "," + cnt.to_s + ")\\\">地図</a>"%>
-    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none\"><%== str %></div>");
+    $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
     <% cnt += 1 %>
     putIconD(<%= i["latitude"] %>,<%= i["longitude"] %>,"<%= i["title"] %>", <%= cnt-1 %>)
 <% } %>
