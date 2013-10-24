@@ -5,9 +5,40 @@ $("#geoLocationLon").html("経度：<%= @lon %>");
 $("#geoLocationAdd").html("住所：<%= @address %><BR><BR>");
 $("#geoRecommend").html("");
 
+$("#cb-hotpepper").prop("checked", true);
+$("#cb-atnd").prop("checked", true);
+$("#cb-dengen").prop("checked", true);
+
 var ymap = new Y.Map("yamap");
 ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
 var markerList = {};
+var markerListHotpepper = {};
+var markerListAtnd = {};
+var markerListDengen = {};
+
+$("#cb-hotpepper").click(function(){
+	if($("#cb-hotpepper").prop("checked") == true){
+		addBaseMarker(markerListHotpepper);
+	}else{
+		removeBaseMarker(markerListHotpepper);
+	}
+});
+
+$("#cb-atnd").click(function(){
+	if($("#cb-atnd").prop("checked") == true){
+		addBaseMarker(markerListAtnd);
+	}else{
+		removeBaseMarker(markerListAtnd);
+	}
+});
+
+$("#cb-dengen").click(function(){
+	if($("#cb-dengen").prop("checked") == true){
+		addBaseMarker(markerListDengen);
+	}else{
+		removeBaseMarker(markerListDengen);
+	}
+});
 
 <% cnt = 0 %>
 <%    @result["results"]["shop"].each{|i| %>
@@ -75,6 +106,7 @@ function putIconH(lat, lon, title, index){
     marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
+    markerListHotpepper[index] = marker;
 }
 
 function putIconA(lat, lon, title, index){
@@ -84,6 +116,7 @@ function putIconA(lat, lon, title, index){
     marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
+    markerListAtnd[index] = marker;
 }
 
 function putIconD(lat, lon, title, index){
@@ -93,6 +126,7 @@ function putIconD(lat, lon, title, index){
     marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
+    markerListDengen[index] = marker;
 }
 
 function expandDetail(i){
@@ -119,4 +153,18 @@ function detailToMap(lat, lon, index){
 	}
 //	ymap.panTo(new Y.LatLng(lat, lon), true);
 	markerList[index].node.click();
+}
+
+function removeBaseMarker(baseMarkerList){
+	for(var key in baseMarkerList){
+		var marker = baseMarkerList[key];
+		ymap.removeFeature(marker);
+	}
+}
+
+function addBaseMarker(baseMarkerList){
+	for(var key in baseMarkerList){
+		var marker = baseMarkerList[key];
+		ymap.addFeature(marker);
+	}
 }
