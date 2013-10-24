@@ -56,21 +56,16 @@ $("#geoRecommend").append("<BR>")
 
 function test(i)
 {
-    <% index = capture do %>i<% end %>
-    var menu = "#menu";
-    var detail = "#detail";
-    menu += String(i);
-    detail += String(i);
-    $(detail).toggle();
-    if($(detail).css("display") == "none")
+    $("#detail" + i).toggle();
+    if($("#detail" + i).css("display") == "none")
     {
-        $(menu).next().next().next().css("border-top", "hidden");
-        $(menu).css("border-bottom", "1px solid #fff");
+        $("#menu" + (i+1)).css("border-top", "hidden");
+        $("#menu" + i).css("border-bottom", "1px solid #fff");
     }
     else
     {
-        $(menu).next().next().next().css("border-top", "1px solid #fff");
-        $(menu).css("border-bottom", "hidden");
+        /* $("#menu" + (i+1)).css("border-top", "1px solid #fff"); */
+        $("#menu" + i).css("border-bottom", "hidden");
     }
 }
 

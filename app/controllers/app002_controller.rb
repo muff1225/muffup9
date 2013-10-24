@@ -9,7 +9,7 @@ class App002Controller < ApplicationController
 
     appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
     url = 'http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder'
-    url = url + '?' + 'lat=' + @lat + '&' + 'lon=' + @lon + '&' + 'appid=' + appKey + '&' + 'output=json'
+    url = url + '?' + 'lat=' + @lat + '&' + 'lon=' + @lon + '&' + 'appid=' + appKey + '&' + 'range=5&count=20&output=json'
     logger.debug url
     
     uri = URI.parse(url)
@@ -50,9 +50,23 @@ class App002Controller < ApplicationController
     
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
-    #proxy_class = Net::HTTP::Proxy('proxy.gw.nic.fujitsu.com', 8080)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
+    logger.debug json
+    
+    url = 'http://oasis.mogya.com/api/v0/search/'
+    url = url + '?' + 'lat=' + @lat +
+                '&' + 'lng=' + @lon +
+                '&' + 'n=' + (@lat.to_f + 0.012).to_s +
+                '&' + 'w=' + (@lon.to_f - 0.012).to_s +
+                '&' + 's=' + (@lat.to_f - 0.012).to_s +
+                '&' + 'e=' + (@lon.to_f + 0.012).to_s
+    logger.debug url
+    
+    uri = URI.parse(url)
+    json = Net::HTTP.get(uri)
+    #json = proxy_class.get(uri)
+    @result3 = JSON.parse(json)
     logger.debug json
     
     respond_to do |format|
