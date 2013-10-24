@@ -79,7 +79,7 @@ a:hover {
 	background-color: #f48a4a;
 //	background-color: #fe857e;
 //	background-color:#34495e;
-	border-radius: 10px;
+//	border-radius: 10px;
 	font-size: medium;
 	display: table;
 	border-bottom: 1px solid #dd5522;
@@ -221,4 +221,5 @@ a:hover {
 
 .cbp-spmenu {
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+	border-radius: 0px;
 }
