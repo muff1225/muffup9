@@ -1,8 +1,12 @@
 RailsApp::Application.routes.draw do
+  root :to => 'app002#test'
   get "app002/test"
   get "app002/get_geo"
 
   get "app001/test"
+
+  match "/auth/:provider/callback" => "Sessions#create"
+  match "/signout" => "Sessions#destroy"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
