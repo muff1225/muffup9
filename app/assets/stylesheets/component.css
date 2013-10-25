@@ -164,21 +164,18 @@
 	}
 }
 
-
 /*shop info layout*/
 div[id^="detail"] dl dt {
   clear: left;
   float: left;
   font-weight: bold;
   font-size:smaller;
-  margin: 0 0 0.8em;
   width: 5em;
-  padding-left: 5px;
+  padding-left: 1em;
 }
 
 div[id^="detail"] dl dd {
-  margin-bottom: 0.8em;
-  margin-left: 5em;
+  margin-left: 5.5em;
   font-size:smaller;
 }
 
@@ -189,6 +186,6 @@ div[id^="detail"] p span{
 
 /*geo info layout*/
 div[id^="geoLocation"]{
-	margin-left:3em;
+	margin-left:1em;
 	font-size:smaller;
 }
