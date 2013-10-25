@@ -60,13 +60,13 @@ $("#geoRecommend").append("<BR>")
     <%    i["event"].each{|j| %>
         $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= j["title"] %></a>");
         <% str = "" %>
-    	<% str += "<img border=\\\"0\\\" src=\\\"" + j["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"> <br>" %>
-    	<% str += "開催場所：" + j["address"] + "<br>" %>
-    	<% str += "開催会場：" + j["place"] + "<br>" %>
-    	<% str += "URL：" + "<a href=\\\"" + j["event_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" +  j["event_url"] + "</a>" + "<br>" %>
-    	<% str += "開催期間：" + (j["kikan"].nil? ? "" : j["kikan"]) + "<br>" %>
-    	<% str += "主催者：" + j["owner_nickname"] + "<br>" %>
-    	<% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + j["lat"] + "," + j["lon"] + "," + cnt.to_s + ")\\\"> 地図</a>"%>
+    	<% str += "<p><img border=\\\"0\\\" src=\\\"" + j["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"> </p>" %>
+    	<% str += "<dl><dt>開催場所</dt><dd>" + j["address"] + "</dd>" %>
+    	<% str += "<dt>開催会場</dt><dd>" + j["place"] + "</dd>" %>
+    	<% str += "<dt>URL</dt><dd>" + "<a href=\\\"" + j["event_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" +  j["event_url"] + "</a>" + "</dd>" %>
+    	<% str += "<dt>開催期間</dt><dd>" + (j["kikan"].nil? ? "" : j["kikan"]) + "</dd>" %>
+    	<% str += "<dt>主催者</dt><dd>" + j["owner_nickname"] + "</dd></dl>" %>
+    	<% str += "<p><a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + j["lat"] + "," + j["lon"] + "," + cnt.to_s + ")\\\"> 地図</a></p>"%>
         $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
         <% cnt += 1 %>
         putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
@@ -75,10 +75,10 @@ $("#geoRecommend").append("<BR>")
 <%    @result3["results"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["title"] %></a>")
     <% str = "" %>
-    <% str += "住所：" + i["address"] + "<br>" %>
-    <% str += "無線LAN：" + i["wireless"] + "<br>" %>
-    <% str += "その他：" + i["tag"] + "<br>" %>
-    <% str += "URL：" + "<a href=\\\"" + i["mo_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["mo_url"] + "</a>" + "<br>" %>
+    <% str += "<dl><dt>住所</dt><dd>" + i["address"] + "</dd>" %>
+    <% str += "<dt>無線LAN</dt><dd>" + i["wireless"] + "</dd>" %>
+    <% str += "<dt>その他</dt><dd>" + i["tag"] + "</dd>" %>
+    <% str += "<dt>URL</dt><dd>" + "<a href=\\\"" + i["mo_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["mo_url"] + "</a>" + "</dd></dl>" %>
     <% str += "<a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["latitude"] + "," + i["longitude"] + "," + cnt.to_s + ")\\\">地図</a>"%>
     $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
     <% cnt += 1 %>
