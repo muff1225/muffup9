@@ -45,11 +45,11 @@ $("#cb-dengen").click(function(){
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
     <% str = "" %>
     <% str += "<p><img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + "width=\\\"64\\\" height=\\\"64\\\" alt=\\\"イラスト1\\\"><span> 画像提供：ホットペッパー  グルメ</span></p>" %>
-    <% str += "<dl><dt>住所：</dt><dd>" + i["address"] + "</dd>" %>
-    <% str += "<dt>アクセス：</dt><dd>" + i["mobile_access"] + "</dd>" %>
-    <% str += "<dt>営業時間：</dt><dd>" + i["open"] + "</dd>" %>
-    <% str += "<dt>定休日：</dt><dd>" + i["close"] + "</dd>" %>
-    <% str += "<dt>URL：</dt><dd>" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a></dd></dl>" %>
+    <% str += "<dl><dt>住所</dt><dd>" + i["address"] + "</dd>" %>
+    <% str += "<dt>アクセス</dt><dd>" + i["mobile_access"] + "</dd>" %>
+    <% str += "<dt>営業時間</dt><dd>" + i["open"] + "</dd>" %>
+    <% str += "<dt>定休日</dt><dd>" + i["close"] + "</dd>" %>
+    <% str += "<dt>URL</dt><dd>" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a></dd></dl>" %>
     <% str += "<p><a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["lat"] + "," + i["lng"] + "," + cnt.to_s + ")\\\">地図</a></p>"%>
     $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
     <% cnt += 1 %>
