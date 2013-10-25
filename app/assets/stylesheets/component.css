@@ -54,10 +54,16 @@
 	border-radius: 20px;
 }
 
-.cbp-spmenu-vertical a {
-	border-bottom: 1px solid #fff;
+//.cbp-spmenu-vertical a {
+//	border-bottom: 1px solid #fff;
 //	border-bottom: 1px solid #2c3e50;
-	padding: 1em;
+//	padding: 1em;
+//}
+
+.cbp-spmenu-vertical #geoRecommend > a {
+	border-bottom: 1px solid #dd5522;
+	border-top: 1px solid #FFB498;
+	padding: 0.5em 1em;
 }
 
 /* Vertical menu that slides from the left or right */
@@ -165,18 +171,30 @@
 }
 
 /*shop info layout*/
+div[id^="detail"] {
+	background: #FFA959;
+	padding: 0.5em;
+}
+
+div[id^="detail"] dl {
+	margin: 0.3em 0;
+}
+
 div[id^="detail"] dl dt {
   clear: left;
   float: left;
   font-weight: bold;
   font-size:smaller;
   width: 5em;
-  padding-left: 1em;
 }
 
 div[id^="detail"] dl dd {
-  margin-left: 5.5em;
+  margin-left: 5em;
   font-size:smaller;
+}
+
+div[id^="detail"] p {
+	margin: 0;
 }
 
 div[id^="detail"] p span{
