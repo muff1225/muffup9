@@ -11,6 +11,9 @@ $("#cb-dengen").prop("checked", true);
 
 var ymap = new Y.Map("yamap");
 ymap.drawMap(new Y.LatLng(<%= @lat %>, <%= @lon %>), 17, Y.LayerSetId.NORMAL);
+var whereami = new Y.Marker(new Y.LatLng(<%= @lat %>, <%= @lon %>));
+ymap.addFeature(whereami);
+
 var markerList = {};
 var markerListHotpepper = {};
 var markerListAtnd = {};
@@ -56,6 +59,7 @@ $("#cb-dengen").click(function(){
     putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
 <% } %>
 $("#geoRecommend").append("<BR>")
+	<% if @result2["events"] %>
 <%    @result2["events"].each{|i| %>
     <%    i["event"].each{|j| %>
         $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= j["title"] %></a>");
@@ -72,6 +76,7 @@ $("#geoRecommend").append("<BR>")
         putIconA(<%= j["lat"] %>,<%= j["lon"] %>,"<%= j["title"] %>", <%= cnt-1 %>)
     <% } %>
 <% } %>
+<% end %>
 <%    @result3["results"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["title"] %></a>")
     <% str = "" %>

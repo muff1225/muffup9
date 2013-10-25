@@ -14,9 +14,9 @@ class App002Controller < ApplicationController
     
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
-    #proxy_class = Net::HTTP::Proxy('proxy.gw.nic.fujitsu.com', 8080)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
+    logger.debug json
     
     @address = @result["Feature"][0]["Property"]["Address"]
     
@@ -33,14 +33,16 @@ class App002Controller < ApplicationController
     logger.debug json
 
     nt = Time.now
-    @result2["events"].each{|i|
-      i["event"].reject!{|item| (Time.parse(item["started_at"]) < nt) and (Time.parse(item["ended_at"]) < nt)}
-      i["event"].each{|j|
-        st = Time.parse(j["started_at"])
-        et = Time.parse(j["ended_at"])
-        j["kikan"] = st.strftime("%Y年%m月%d日(%a)～") + et.strftime("%Y年%m月%d日(%a) (") + st.strftime("%H:%M～") + et.strftime("%H:%M)")
+    if @result2["events"]
+      @result2["events"].each{|i|
+        i["event"].reject!{|item| (Time.parse(item["started_at"]) < nt) and (Time.parse(item["ended_at"]) < nt)}
+        i["event"].each{|j|
+          st = Time.parse(j["started_at"])
+          et = Time.parse(j["ended_at"])
+          j["kikan"] = st.strftime("%Y年%m月%d日(%a)～") + et.strftime("%Y年%m月%d日(%a) (") + st.strftime("%H:%M～") + et.strftime("%H:%M)")
+        }
       }
-    }
+    end
     #logger.debug @result2
     
     appKey = '24b486bc826adfe8'
