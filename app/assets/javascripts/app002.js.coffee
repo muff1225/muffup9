@@ -8,6 +8,19 @@ myPosition = []
 $(document).ready( ->
  
     getCurrent = ->
+      if 1 < window.location.search.length 
+        query = window.location.search.substring(1)
+        parameters = query.split('&')
+        element = parameters[0].split('=')
+        paramName = element[0]
+        paramValue = element[1]
+        myPosition[0] = paramValue
+        element = parameters[1].split('=')
+        paramName = element[0]
+        paramValue = element[1]
+        myPosition[1] = paramValue
+      if myPosition[1]
+        return postData()
       navigator.geolocation.getCurrentPosition(
         onSuccess,
         onError,
