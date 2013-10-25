@@ -4,6 +4,7 @@
 
 
 myPosition = []
+latlon = []
  
 $(document).ready( ->
  
@@ -11,16 +12,16 @@ $(document).ready( ->
       if 1 < window.location.search.length 
         query = window.location.search.substring(1)
         parameters = query.split('&')
-        element = parameters[0].split('=')
-        paramName = element[0]
-        paramValue = element[1]
-        myPosition[0] = paramValue
-        element = parameters[1].split('=')
-        paramName = element[0]
-        paramValue = element[1]
-        myPosition[1] = paramValue
-      if myPosition[1]
-        return postData()
+        for key, param of parameters
+          element = param.split('=')
+          name = decodeURIComponent(element[0])
+          value = decodeURIComponent(element[1])
+          latlon[name] = decodeURIComponent(value)
+        if latlon['lat']
+          myPosition[0] = latlon['lat']
+          if latlon['lon']
+            myPosition[1] = latlon['lon']
+            return postData()
       navigator.geolocation.getCurrentPosition(
         onSuccess,
         onError,
