@@ -72,6 +72,7 @@ a:hover {
 .container > header ul{
 	list-style-type:none;
 	margin:0;
+    height: 35px;
 	width: 100%;
 	padding: 0;
 	text-align: center;
@@ -105,16 +106,17 @@ a:hover {
 }
 
 header li:nth-child(2) a {
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: 50%;
-	font-size: 20px;
-	width: 200px;
-	margin-left: -100px;
-	z-index: 4;
-	color: #F6F1E4;
-	text-shadow: -2px 2px 0px #f48a4a, 2px 2px 0px #f48a4a ,3px 3px 0px #dd5522;
+display: block;
+position: absolute;
+top: 0px;
+left: 50%;
+font-size: 20px;
+width: 150px;
+margin-left: -75px;
+line-height: 100%;
+z-index: 4;
+color: #F6F1E4;
+text-shadow: 2px 2px 0px #f48a4a, -2px 2px 0px #f48a4a,-3px 3px 0px #dd5522, 3px 3px 0px #dd5522;
 }
 
 .container > header ul li:first-child{
