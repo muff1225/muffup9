@@ -179,6 +179,11 @@ div[id^="detail"] {
 	padding: 0.5em;
 }
 
+div[id^="detail"] img {
+	max-height: 64px;
+	max-width:80%;
+}
+
 div[id^="detail"] dl {
 	margin: 0.3em 0;
 }
