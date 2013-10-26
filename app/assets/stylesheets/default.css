@@ -116,7 +116,7 @@ margin-left: -75px;
 line-height: 100%;
 z-index: 4;
 color: #F6F1E4;
-text-shadow: 2px 2px 0px #f48a4a, -2px 2px 0px #f48a4a,-3px 3px 0px #dd5522, 3px 3px 0px #dd5522;
+text-shadow: 0px 2px 0px #f48a4a,2px 2px 0px #f48a4a, -2px 2px 0px #f48a4a,-3px 3px 0px #dd5522, 3px 3px 0px #dd5522,0px 3px 0px #dd5522;
 }
 
 .container > header ul li:first-child{
