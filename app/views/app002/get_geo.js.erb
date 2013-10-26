@@ -108,7 +108,7 @@ function test(i)
 function putIconH(lat, lon, title, index){
     var icon = new Y.Icon("/assets/hot_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\" style=\"color:orange\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
     markerListHotpepper[index] = marker;
@@ -118,7 +118,7 @@ function putIconA(lat, lon, title, index){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
     var icon = new Y.Icon("/assets/atnd_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\" style=\"color:orange\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
     markerListAtnd[index] = marker;
@@ -128,7 +128,7 @@ function putIconD(lat, lon, title, index){
     var label = new Y.Label(new Y.LatLng(lat, lon), title);
     var icon = new Y.Icon("/assets/dengen_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\">詳細</a>");
+    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\" style=\"color:orange\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
     markerListDengen[index] = marker;
