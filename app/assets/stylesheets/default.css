@@ -98,11 +98,24 @@ a:hover {
 	border-left: 1px solid #2c3e50;
 }
 
-.container > header ul li a:link,a:visited{
-	display:block;
-	padding:4px;
-	color:#FFFFFF;
-	font-family: Courier;
+.container > header ul li a:link, a:visited {
+	display: block;
+	padding: 4px;
+	color: #FFFFFF;
+	font-family: cursive;
+}
+
+header li:nth-child(2) a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	font-size: 30px;
+	width: 300px;
+	margin-left: -150px;
+	z-index: 4;
+	color: #F6F1E4;
+	text-shadow: -2px 2px 0px #f48a4a, 2px 2px 0px #f48a4a ,3px 3px 0px #dd5522;
 }
 
 .container > header ul li:first-child{
