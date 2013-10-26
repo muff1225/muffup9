@@ -140,7 +140,7 @@ header li:nth-child(2) a {
 	height: 100%;
 	border: none;
 	border-radius: 30px;
-	padding: 5px;
+	padding: 0px;
 }
 .container > footer {
 	width: 100%;
