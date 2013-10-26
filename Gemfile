@@ -17,9 +17,9 @@ gem 'unicorn'
 
 # gem 'redis-rails', '~> 3.2.3'
 
-gem 'geocoder'
+#gem 'geocoder'
 
-gem 'geokit-rails'
+#gem 'geokit-rails'
 
 gem 'addressable', require: 'addressable/uri'
 
