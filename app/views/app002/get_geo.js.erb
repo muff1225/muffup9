@@ -47,7 +47,7 @@ $("#cb-dengen").click(function(){
 <%    @result["results"]["shop"].each{|i| %>
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
     <% str = "" %>
-    <% str += "<p><img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + " alt=\\\"写真<%= cnt %>\\\"><span> 画像提供：ホットペッパー  グルメ</span></p>" %>
+    <% str += "<p><img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + " alt=\\\"写真\\\"><span> 画像提供：ホットペッパー  グルメ</span></p>" %>
     <% str += "<dl><dt>住所</dt><dd>" + i["address"] + "</dd>" %>
     <% str += "<dt>アクセス</dt><dd>" + i["mobile_access"] + "</dd>" %>
     <% str += "<dt>営業時間</dt><dd>" + i["open"] + "</dd>" %>
@@ -64,7 +64,7 @@ $("#geoRecommend").append("<BR>")
     <%    i["event"].each{|j| %>
         $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= j["title"] %></a>");
         <% str = "" %>
-    	<% str += "<p><img border=\\\"0\\\" src=\\\"" + j["logo_image"] + "\\\"" + " alt=\\\"写真<%= cnt %>\\\"> </p>" %>
+    	<% str += "<p><img border=\\\"0\\\" src=\\\"" + j["logo_image"] + "\\\"" + " alt=\\\"写真\\\"> </p>" %>
     	<% str += "<dl><dt>開催場所</dt><dd>" + j["address"] + "</dd>" %>
     	<% str += "<dt>開催会場</dt><dd>" + j["place"] + "</dd>" %>
     	<% str += "<dt>URL</dt><dd>" + "<a href=\\\"" + j["event_url"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" +  j["event_url"] + "</a>" + "</dd>" %>
