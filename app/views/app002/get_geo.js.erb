@@ -58,7 +58,6 @@ $("#cb-dengen").click(function(){
     <% cnt += 1 %>
     putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
 <% } %>
-$("#geoRecommend").append("<BR>")
 	<% if @result2["events"] %>
 <%    @result2["events"].each{|i| %>
     <%    i["event"].each{|j| %>
