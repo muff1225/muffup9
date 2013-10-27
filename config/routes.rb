@@ -7,7 +7,6 @@ RailsApp::Application.routes.draw do
 
   match "/auth/:provider/callback" => "Sessions#create"
   match "/auth/:provider/failure" => "Sessions#failure"
-  match "/auth/:provider/callback/:denied" => "Sessions#cancel"
   match "/signout" => "Sessions#destroy"
 
   # The priority is based upon order of creation:
