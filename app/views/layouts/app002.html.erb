@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="-1"> 
+		<meta http-equiv="expires" content="-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<title>THE BASECAMP</title>
 		<%= stylesheet_link_tag    "application", :media => "all"%>
@@ -17,8 +17,16 @@
 	<body class="cbp-spmenu-push">
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 			<h3><i class="icon-gear"></i></h3>
+			<% if signed_in? %>
+             <ul style="list-style-image: url('http://gadgtwit.appspot.com/twicon/<%= session[:username] %>/mini')">
+             	<li>Welcome to <%= session[:username] %></li>
+             </ul>
+				<a href="/signout" title="Twitterからログアウト"><i class="icon-twitter-sign"></i>LOGOUT</a>
+            <% else %>
+              	<a href="/auth/twitter/" title="Twitterでログイン"><i class="icon-twitter-sign"></i>LOGIN</a>
+            <% end %>
 
-			<a href="/auth/twitter/" title="Twitterでログイン"><i class="icon-twitter-sign"></i>LOGIN</a>
+
 			<a href="#"><label><input type="checkbox" id="cb-hotpepper" />ホットペッパー</label></a>
 			<a href="#"><label><input type="checkbox" id="cb-atnd" />eventATND</label></a>
 			<a href="#"><label><input type="checkbox" id="cb-dengen" />電源検索</label></a>
