@@ -30,7 +30,6 @@ class App002Controller < ApplicationController
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result2 = JSON.parse(json)
-    logger.debug json
 
     nt = Time.now
     if @result2["events"]
@@ -43,7 +42,6 @@ class App002Controller < ApplicationController
         }
       }
     end
-    #logger.debug @result2
     
     appKey = '24b486bc826adfe8'
     url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
@@ -54,7 +52,6 @@ class App002Controller < ApplicationController
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
-    logger.debug json
     
     url = 'http://oasis.mogya.com/api/v0/search/'
     url = url + '?' + 'lat=' + @lat +
@@ -69,7 +66,6 @@ class App002Controller < ApplicationController
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result3 = JSON.parse(json)
-    logger.debug json
     
     respond_to do |format|
       format.js
