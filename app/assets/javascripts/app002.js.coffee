@@ -37,13 +37,21 @@ $(document).ready( ->
  
     onError = (err) ->
         switch err.code
-          when 0 then message = 'Unknown error: ' + err.message
-          when 1 then message = 'You denied permission to retrieve a position.'
+          when 0
+            message = 'Unknown error: ' + err.message
+            $("#geoLocationAdd").html(message)
+          when 1
+            $("#geoLocationAdd").html('現在地を取得できません')
+            message = 'You denied permission to retrieve a position.'
           when 2
-              $("#geoLocationAdd").html('The browser was unable to determine a position.')
-              message = 'The browser was unable to determine a position: ' + err.message
-          when 3 then message = 'The browser timed out before retrieving the position.'
-          else message = err.message
+            $("#geoLocationAdd").html('現在地を取得できません')
+            message = 'The browser was unable to determine a position: ' + err.message
+          when 3
+            $("#geoLocationAdd").html('現在地を取得できません')
+            message = 'The browser timed out before retrieving the position.'
+          else
+            message = err.message
+            $("#geoLocationAdd").html(message)
  
     postData = ->
         $.ajax({
