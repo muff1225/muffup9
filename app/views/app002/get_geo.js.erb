@@ -44,7 +44,7 @@ $("#cb-dengen").click(function(){
 });
 
 <% cnt = 0 %>
-<%    @result["results"]["shop"].each{|i| %>
+<%    @result5.each{|key,i| %>
     $("#geoRecommend").append("<a href=\"#\" id=\"menu<%= cnt %>\" onclick=\"test(<%= cnt %>); return false;\"><%= i["name"] %></a>")
     <% str = "" %>
     <% str += "<p><img border=\\\"0\\\" src=\\\"" + i["logo_image"] + "\\\"" + " alt=\\\"写真\\\"><span> 画像提供：ホットペッパー  グルメ</span></p>" %>

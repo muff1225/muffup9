@@ -10,6 +10,7 @@ class App002Controller < ApplicationController
     @lat = params[:lat]
     @lon = params[:lon]
     
+    # twitterキーワード抽出
     tweetss = ''
     if session[:oauth_token]
       client = create_client
@@ -20,44 +21,40 @@ class App002Controller < ApplicationController
         end
         tweetss = tweetss.slice(0,1000)
         tweetss = URI.escape(tweetss)
-        logger.debug tweetss
       end
     end
+    if tweetss.length > 0
+      appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
+      url = 'http://jlp.yahooapis.jp/KeyphraseService/V1/extract?appid='
+      url = url + appKey + '&sentence=' + tweetss + '&output=json'
+      uri = URI.parse(url)
+      #json = proxy_class.get(uri)
+      json = Net::HTTP.get(uri)
+      @result4 = JSON.parse(json)
+    end
     
-    appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
-    url = 'http://jlp.yahooapis.jp/KeyphraseService/V1/extract?appid='
-    url = url + appKey + '&sentence=' + tweetss + '&output=json'
-    uri = URI.parse(url)
-    logger.debug uri
-    #json = proxy_class.get(uri)
-    json = Net::HTTP.get(uri)
-    @result4 = JSON.parse(json)
-    logger.debug @result4
-    
+    # 現在地住所
     appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
     url = 'http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder'
     url = url + '?' + 'lat=' + @lat + '&' + 'lon=' + @lon + '&' + 'appid=' + appKey + '&' + 'range=5&count=20&output=json'
     logger.debug url
-    
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
-    logger.debug json
-    
     @address = @result["Feature"][0]["Property"]["Address"]
-    
 #    @address2 = @result["Feature"][0]["Property"]["AddressElement"][0]["Name"] + @result["Feature"][0]["Property"]["AddressElement"][1]["Name"] + @result["Feature"][0]["Property"]["AddressElement"][2]["Name"]
     @address2 = @result["Feature"][0]["Property"]["AddressElement"][0]["Name"] + @result["Feature"][0]["Property"]["AddressElement"][1]["Name"]
     logger.debug @address2
     
+    # eventATND
     url = 'http://api.atnd.org/eventatnd/event/'
     url = url + '?' + 'keyword=' + @address2 + '&count=100&format=json'
+    logger.debug url
     uri = Addressable::URI.parse(url)
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result2 = JSON.parse(json)
-
     nt = Time.now
     if @result2["events"]
       @result2["events"].each{|i|
@@ -70,16 +67,36 @@ class App002Controller < ApplicationController
       }
     end
     
+    # ホットペッパー
     appKey = '24b486bc826adfe8'
     url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
     url = url + '?' + 'key=' + appKey + '&' + 'lat=' + @lat + '&' + 'lng=' + @lon + '&' + 'range=3&count=100&format=json'
     logger.debug url
-    
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result = JSON.parse(json)
+    @result5 = {}
+    @result["results"]["shop"].each{|i|
+      if @result4
+        @result4.each{|h_key, h_value|
+          if i.to_s.index(h_key)
+            @result5[@result5.length] = i
+            @result["results"]["shop"].delete(i)
+          end
+        }
+      end
+    }
+    h_count = @result5.length
+    @result["results"]["shop"].each{|i|
+      @result5[@result5.length] = i
+      h_count += 1
+      if h_count > 20
+        break
+      end
+    }
     
+    # 電源検索
     url = 'http://oasis.mogya.com/api/v0/search/'
     url = url + '?' + 'lat=' + @lat +
                 '&' + 'lng=' + @lon +
@@ -88,7 +105,6 @@ class App002Controller < ApplicationController
                 '&' + 's=' + (@lat.to_f - 0.012).to_s +
                 '&' + 'e=' + (@lon.to_f + 0.012).to_s
     logger.debug url
-    
     uri = URI.parse(url)
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
