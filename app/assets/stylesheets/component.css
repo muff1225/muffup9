@@ -215,3 +215,7 @@ div[id^="geoLocation"]{
 	margin-left:1em;
 	font-size:smaller;
 }
+
+#geoLocationLon, #geoLocationLat {
+	display: none;
+}
