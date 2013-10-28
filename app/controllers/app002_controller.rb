@@ -81,8 +81,10 @@ class App002Controller < ApplicationController
       if @result4
         @result4.each{|h_key, h_value|
           if i.to_s.index(h_key)
-            @result5[@result5.length] = i
-            @result["results"]["shop"].delete(i)
+            t_h_i = @result["results"]["shop"].delete(i)
+            if t_h_i
+              @result5[@result5.length] = t_h_i
+            end
           end
         }
       end
