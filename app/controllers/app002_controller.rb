@@ -1,12 +1,39 @@
 # coding: utf-8
 
 class App002Controller < ApplicationController
+  require 'twitter'
+  include SessionsHelper
+
   def get_geo
     logger.debug params[:lat]
     logger.debug params[:lon]
     @lat = params[:lat]
     @lon = params[:lon]
-
+    
+    tweetss = ''
+    if session[:oauth_token]
+      client = create_client
+      if client
+        options = {"count" => 100}
+        client.user_timeline(session[:username], options).each do |res|
+          tweetss = tweetss + res.text
+        end
+        tweetss = tweetss.slice(0,1000)
+        tweetss = URI.escape(tweetss)
+        logger.debug tweetss
+      end
+    end
+    
+    appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
+    url = 'http://jlp.yahooapis.jp/KeyphraseService/V1/extract?appid='
+    url = url + appKey + '&sentence=' + tweetss + '&output=json'
+    uri = URI.parse(url)
+    logger.debug uri
+    #json = proxy_class.get(uri)
+    json = Net::HTTP.get(uri)
+    @result4 = JSON.parse(json)
+    logger.debug @result4
+    
     appKey = 'dj0zaiZpPWdQaVdtWGlLMDhrWCZzPWNvbnN1bWVyc2VjcmV0Jng9NzE-'
     url = 'http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder'
     url = url + '?' + 'lat=' + @lat + '&' + 'lon=' + @lon + '&' + 'appid=' + appKey + '&' + 'range=5&count=20&output=json'
@@ -45,7 +72,7 @@ class App002Controller < ApplicationController
     
     appKey = '24b486bc826adfe8'
     url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
-    url = url + '?' + 'key=' + appKey + '&' + 'lat=' + @lat + '&' + 'lng=' + @lon + '&' + 'range=3&format=json'
+    url = url + '?' + 'key=' + appKey + '&' + 'lat=' + @lat + '&' + 'lng=' + @lon + '&' + 'range=3&count=100&format=json'
     logger.debug url
     
     uri = URI.parse(url)
