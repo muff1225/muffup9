@@ -17,8 +17,9 @@ class App002Controller < ApplicationController
       if client
         options = {"count" => 100}
         client.user_timeline(session[:username], options).each do |res|
-          tweetss = tweetss + res.text
+          tweetss = tweetss + ',' + res.text
         end
+        tweetss = tweetss.gsub(/@[a-zA-Z0-9]+/, '')
         tweetss = tweetss.slice(0,1000)
         tweetss = URI.escape(tweetss)
       end
@@ -63,6 +64,31 @@ class App002Controller < ApplicationController
           st = Time.parse(j["started_at"])
           et = Time.parse(j["ended_at"])
           j["kikan"] = st.strftime("%Y年%m月%d日(%a)～") + et.strftime("%Y年%m月%d日(%a) (") + st.strftime("%H:%M～") + et.strftime("%H:%M)")
+        }
+      }
+      @result7 = {}
+      @result2["events"].each{|i|
+        i["event"].each{|j|
+          if @result4
+            @result4.each{|a_key, a_value|
+              if j.to_s.index(a_key)
+                t_a_i = i["event"].delete(j)
+                if t_a_i
+                  @result7[@result7.length] = t_a_i
+                end
+              end
+            }
+          end
+        }
+      }
+      h_count = @result7.length
+      @result2["events"].each{|i|
+        i["event"].each{|j|
+          @result7[@result7.length] = j
+          h_count += 1
+          if h_count > 20
+            break
+          end
         }
       }
     end
@@ -111,7 +137,28 @@ class App002Controller < ApplicationController
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result3 = JSON.parse(json)
-    
+    @result6 = {}
+    @result3["results"].each{|i|
+      if @result4
+        @result4.each{|d_key, d_value|
+          if i.to_s.index(d_key)
+            t_d_i = @result3["results"].delete(i)
+            if t_d_i
+              @result6[@result6.length] = t_d_i
+            end
+          end
+        }
+      end
+    }
+    h_count = @result6.length
+    @result3["results"].each{|i|
+      @result6[@result6.length] = i
+      h_count += 1
+      if h_count > 20
+        break
+      end
+    }
+
     respond_to do |format|
       format.js
 		end
