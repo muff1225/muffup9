@@ -240,15 +240,27 @@ text-shadow: -1px 1px 0px #dd5522, 1px 1px 0px #dd5522, 0px 1px 0px #dd5522;
 	border-radius: 0px;
 }
 
-#tw_keywords span{
+#tw_keywords {
 	background: #FFA959;
-	color: #fff;
-	border-top:1px solid #E07D41;
-	border-bottom: 1px solid #FFbb88;
-	padding:0.2em 0.5em;
-	margin:0.1em 0.5em;
-	display: inline-block;
-	border-radius: 1em;
-	font-size: small;
+	padding: 0.5em;
+	margin: 1em;
+	border-radius: 12px;
+	position: relative;
+	border-top: 1px solid #E07D41;
+	border-bottom: 1px solid #ffbb99;
 }
+
+#tw_keywords:after {
+	content: "";
+	position: absolute;
+	top: -23px;
+	left: 10%;
+	word-break: normal;
+	border: 12px solid transparent;
+	border-bottom: 12px solid #FFA959;
+}
+#tw_keywords span {
+	color: #fff;
+	margin: 0.1em 0.5em;
+	font-size: small;
 }
