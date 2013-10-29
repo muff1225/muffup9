@@ -21,12 +21,11 @@
              <ul style="list-style-image: url('http://gadgtwit.appspot.com/twicon/<%= session[:username] %>/mini')">
              	<li>Welcome to <%= session[:username] %></li>
              </ul>
+				<div id="tw_keywords"></div>
 				<a href="/signout" title="Twitterからログアウト"><i class="icon-twitter-sign"></i>LOGOUT</a>
             <% else %>
               	<a href="/auth/twitter/" title="Twitterでログイン"><i class="icon-twitter-sign"></i>LOGIN</a>
             <% end %>
-
-
 			<a href="#"><label><input type="checkbox" id="cb-hotpepper" />ホットペッパー</label></a>
 			<a href="#"><label><input type="checkbox" id="cb-atnd" />eventATND</label></a>
 			<a href="#"><label><input type="checkbox" id="cb-dengen" />電源検索</label></a>
