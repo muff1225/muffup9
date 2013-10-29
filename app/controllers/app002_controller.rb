@@ -56,6 +56,7 @@ class App002Controller < ApplicationController
     json = Net::HTTP.get(uri)
     #json = proxy_class.get(uri)
     @result2 = JSON.parse(json)
+    @result7 = {}
     nt = Time.now
     if @result2["events"]
       @result2["events"].each{|i|
@@ -66,7 +67,6 @@ class App002Controller < ApplicationController
           j["kikan"] = st.strftime("%Y年%m月%d日(%a)～") + et.strftime("%Y年%m月%d日(%a) (") + st.strftime("%H:%M～") + et.strftime("%H:%M)")
         }
       }
-      @result7 = {}
       @result2["events"].each{|i|
         i["event"].each{|j|
           if @result4
