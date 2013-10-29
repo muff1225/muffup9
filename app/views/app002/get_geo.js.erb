@@ -45,7 +45,7 @@ $("#cb-dengen").click(function(){
 
 <% if @result4 %>
 <% @result4.each{|key, value| %>
-	$("#tw_keywords").append("<span style=\"background: #34495E; color: white; margin: 3px 3px 3px 15px; display: inline-block; border-radius: 5px 5px 5px 5px; font-size: small;\"><%= key %></span>");
+	$("#tw_keywords").append("<span><%= key %></span>");
 <% } %>
 <% end %>
 
