@@ -44,6 +44,7 @@ $("#cb-dengen").click(function(){
 });
 
 <% if @result4 %>
+	$("#tw_keywords").html("");
 <% @result4.each{|key, value| %>
 	$("#tw_keywords").append("<span><%= key %></span>");
 <% } %>
