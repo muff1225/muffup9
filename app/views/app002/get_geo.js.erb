@@ -59,11 +59,12 @@ $("#cb-dengen").click(function(){
     <% str += "<dt>アクセス</dt><dd>" + i["mobile_access"] + "</dd>" %>
     <% str += "<dt>営業時間</dt><dd>" + i["open"] + "</dd>" %>
     <% str += "<dt>定休日</dt><dd>" + i["close"] + "</dd>" %>
+    <% str += "<dt>ジャンル</dt><dd>" + i["genre"]["name"] + "</dd>" %>
     <% str += "<dt>URL</dt><dd>" + "<a href=\\\"" + i["urls"]["pc"] + "\\\" target=\\\"_blank\\\" style=\\\"border-bottom:none; padding:0; display:inline; \\\" >" + i["urls"]["pc"] + "</a></dd></dl>" %>
     <% str += "<p><a href=\\\"#\\\" class=\\\"icon-map-marker\\\" onclick=\\\"detailToMap(" + i["lat"] + "," + i["lng"] + "," + cnt.to_s + ")\\\">地図</a></p>"%>
     $("#geoRecommend").append("<div id=\"detail<%= cnt %>\" style=\"display: none; word-break:break-all; \"><%== str %></div>");
     <% cnt += 1 %>
-    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", <%= cnt-1 %>)
+    putIconH(<%= i["lat"] %>,<%= i["lng"] %>,"<%= i["name"] %>", "<%= i["genre"]["name"] %>", <%= cnt-1 %>)
 <% } %>
 $("#geoRecommend").append("<BR>")
     <%    @result7.each{|key, j| %>
@@ -95,7 +96,7 @@ $("#geoRecommend").append("<BR>")
 
 function test(i)
 {
-    $("#detail" + i).toggle();
+    $("#detail" + i).toggle('slow');
     if($("#detail" + i).css("display") == "none")
     {
         $("#menu" + (i+1)).css("border-top", "hidden");
@@ -108,10 +109,10 @@ function test(i)
     }
 }
 
-function putIconH(lat, lon, title, index){
+function putIconH(lat, lon, title, genre, index){
     var icon = new Y.Icon("/assets/hot_icon.png");
     var marker = new Y.Marker(new Y.LatLng(lat, lon), {icon: icon});
-    marker.bindInfoWindow(title + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\" style=\"color:orange\">詳細</a>");
+    marker.bindInfoWindow(title + "<br>" + "<span style=\"font-size: x-small;\">" + genre + "</span>" + "<br><a href=\"#\" onclick=\"expandDetail(" + index + ")\" style=\"color:orange\">詳細</a>");
     ymap.addFeature(marker);
     markerList[index] = marker;
     markerListHotpepper[index] = marker;
